@@ -3,14 +3,11 @@ import httpAxios from "./httpAxios";
 
 
 type obtenerDatosProps = {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   parametros: loginRequestType
 }
 
-async function obtenerDatos({ setLoading, parametros }: obtenerDatosProps) {
-  setLoading(true);
+async function obtenerDatos({ parametros }: obtenerDatosProps) {
   const datos = await httpAxios({ parametros });
-  setLoading(false);
   return datos;
 }
 

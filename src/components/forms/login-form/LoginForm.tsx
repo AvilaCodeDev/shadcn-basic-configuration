@@ -10,24 +10,17 @@ import { cn } from "@/lib/utils"
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom"
+import { useLoginStore } from "@/store/store"
 
 export const LoginForm = ({ className,
     ...props
 }: React.ComponentPropsWithoutRef<"div">) => {
 
     const navigate = useNavigate();
+    const { setLogin } = useLoginStore();
     const { register, handleSubmit } = useForm<loginTypes>();
-    const { setLoading, setUserData, setLogged, setMenu } = useGlobalContext();
     const onSubmit: SubmitHandler<loginTypes> = async( data ) => {
-        const ingresar = await VerificaIngreso({ setLoading, data });
-        if( ingresar.acceso != false ){
-            setUserData( ingresar );
-            setLogged( true );
-            setMenu( ingresar.menu );
-            
-            navigate("/app");
-            
-        }
+        setLogin( data );
     }
 
     return (

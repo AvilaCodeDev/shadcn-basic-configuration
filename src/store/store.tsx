@@ -1,12 +1,19 @@
-import { loginSlice } from '@/slices/LoginSlice';
-import { configureStore } from '@reduxjs/toolkit'
+import LoginReducer, { loginStore } from '@/slices/LoginSlice';
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+
+
+
+export const AppReducer = combineReducers({
+    login: LoginReducer
+})
+
 
 export const store = configureStore({
-    reducer:{
-        login: loginSlice.reducer
-    }
+    reducer: AppReducer,
+    // devTools: process.env.NODE_ENV !== 'production',
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+                serializableCheck: false
+            }),
 });
 
-export type RootState = ReturnType<typeof store.getState>
-
-export type AppDispatch = typeof store.dispatch
+export const useLoginStore = () => loginStore();

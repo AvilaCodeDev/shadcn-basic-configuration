@@ -6,11 +6,10 @@ import { loginRequestType, loginTypes, userDataType } from "../interfaces/interf
 import obtenerDatos from "./obtenerDatos";
 
 type verficaIngresoProps = {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   data: loginTypes
 }
 
-export default async function VerificaIngreso({ setLoading, data }: verficaIngresoProps):Promise<userDataType> {
+export default async function VerificaIngreso({ data }: verficaIngresoProps):Promise<userDataType> {
   const parametros: loginRequestType = {
     usuario: codificar(data.usuario),
     passWord: codificar(data.passwd),
@@ -25,7 +24,7 @@ export default async function VerificaIngreso({ setLoading, data }: verficaIngre
     tokenUsuario: null,
     menu: [{}]
   }
-  const datos = await obtenerDatos({ setLoading, parametros });
+  const datos = await obtenerDatos({parametros });
   // console.log(datos);
 
   if (datos.error) {
